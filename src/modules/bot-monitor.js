@@ -31,7 +31,7 @@ module.exports = () => {
       format.color = "brightgreen";
     }
 
-    res.type("svg").send(makeBadge(format));
+    res.header("Cache-Control", "no-store").type("svg").send(makeBadge(format));
   });
 
   app.get("/badge/:id/uptime.svg", (req, res) => {
@@ -47,7 +47,7 @@ module.exports = () => {
     if (uptime < 90.0) color = "orange";
     if (uptime < 75.0) color = "red";
     
-    res.type("svg").send(makeBadge({
+    res.header("Cache-Control", "no-store").type("svg").send(makeBadge({
       label: "uptime 7d",
       message: uptime + "%",
       labelColor: "grey",
