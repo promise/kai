@@ -29,7 +29,7 @@ module.exports = async client => {
     if (permissionLevel < permissionLadder[permissions[command.name] || "ALL"]) return interaction.reply({ content: `${emojis.get("command_denied")} You don't have permission to do this.`, ephemeral: true });
 
     const
-      args = getSlashArgs(interaction.options),
+      args = getSlashArgs(interaction.options.data),
       path = [
         command.name,
         ...(
@@ -45,19 +45,19 @@ module.exports = async client => {
       ],
       commandFile = require(`../commands/slash/${path.join("/")}.js`);
     
-    commandFile.execute(interaction, getActualSlashArgs(interaction.options), { client, componentCallbacks, permissionLevel });
+    commandFile.execute(interaction, getActualSlashArgs(interaction.options.data), { client, componentCallbacks, permissionLevel });
   });
 };
 
 function getSlashArgs(options) { // to get the path as well as the args
   const args = {};
-  for (const o of [...options.values()]) args[o.name] = o.options ? getSlashArgs(o.options) : o.value;
+  for (const o of options) args[o.name] = o.options ? getSlashArgs(o.options) : o.value;
   return args;
 }
 
 function getActualSlashArgs(options) { // sends through to the command files
-  if (!options.first()) return {};
-  if (options.first().options) return getActualSlashArgs(options.first().options);
+  if (!options[0]) return {};
+  if (options[0].options) return getActualSlashArgs(options[0].options);
   else return getSlashArgs(options);
 }
 
