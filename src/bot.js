@@ -3,7 +3,7 @@ const
   fs = require("fs"),
   config = require("../config"),
   emojiServerHandler = require("./handlers/emojiServer"),
-  slashCommandsHandler = require("./handlers/slashCommands"),
+  interactionsHandler = require("./handlers/interactions"),
   normalCommandsHandler = require("./handlers/commands"),
   client = new Discord.Client({
     messageCacheLifetime: 60,
@@ -26,7 +26,7 @@ client.on("ready", async () => {
   if (config.client.id !== client.user.id) console.log("WARNING: Your client ID in the config does not match the bot's actual ID. If you want to use OAuth2 then you will need to change your client ID in the config.js file.");
 
   await emojiServerHandler(client);
-  slashCommandsHandler(client);
+  interactionsHandler(client);
 
   // load and run modules
   fs.readdir("./src/modules", (err, files) => err ? console.log(err) : files.filter(file => file.endsWith(".js")).forEach(file => require(`./modules/${file}`)(client)));
