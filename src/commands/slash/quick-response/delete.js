@@ -10,9 +10,9 @@ module.exports = {
   ]
 };
 
-const { Interaction } = require("discord.js"), config = require("../../../../config"), { quickresponses, emojis } = require("../../../database");
+const { CommandInteraction } = require("discord.js"), config = require("../../../../config"), { quickresponses, emojis } = require("../../../database");
 
-module.exports.execute = (interaction = new Interaction, { name }, { componentCallbacks }) => {
+module.exports.execute = (interaction = new CommandInteraction, { name }, { componentCallbacks }) => {
   name = name.toLowerCase();
   const body = quickresponses.get(name);
 

@@ -16,9 +16,9 @@ module.exports = {
   ]
 };
 
-const { Interaction } = require("discord.js"), config = require("../../../../config"), { quickresponses, emojis } = require("../../../database");
+const { CommandInteraction } = require("discord.js"), config = require("../../../../config"), { quickresponses, emojis } = require("../../../database");
 
-module.exports.execute = (interaction = new Interaction, { name, body }, { componentCallbacks }) => {
+module.exports.execute = (interaction = new CommandInteraction, { name, body }, { componentCallbacks }) => {
   name = name.toLowerCase();
   body = body.split(";;").join("\n");
 
