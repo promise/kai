@@ -5,6 +5,22 @@ module.exports = {
 const { Interaction } = require("discord.js"), config = require("../../../config"), { quickresponses, emojis } = require("../../database");
 
 module.exports.execute = (interaction = new Interaction, _, { componentCallbacks }) => {
+
+  if ( quickresponses.raw().length == 0) {
+    let response = { embeds: [{
+      fields: [
+        {
+          name: "Issue",
+          title: "No responses available",
+          description: "There is no quick response available, please create one to see it here",
+          inline: true
+        }
+      ],
+      color: config.colors.success
+    }], ephemeral: true };
+    return interaction.reply(response);
+  };
+
   const
     responses = quickresponses.raw().sort((a, b) => a.ID > b.ID ? 1 : -1),
     blank = emojis.get("blank"),
