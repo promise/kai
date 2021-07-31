@@ -12,6 +12,7 @@ module.exports = {
     admin: "449577708100517888",
     staff: "449577579611947009"
   },
+  hereToHelpRole: "759329966042906634",
 
   // express port for endpoints
   port: 5001,
@@ -51,5 +52,14 @@ module.exports = {
 
   // separate humans from bots with these two roles
   userRole: "",
-  botRole: ""
+  botRole: "",
+
+  // ticket settings
+  tickets: {
+    categories: {
+      inbox: "",
+      replied: ""
+    },
+    moveTimeout: 30000 // move the ticket back to inbox after 30 seconds of no reply from a staff member
+  }
 };
