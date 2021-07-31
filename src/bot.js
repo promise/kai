@@ -5,6 +5,7 @@ const
   emojiServerHandler = require("./handlers/emojiServer"),
   interactionsHandler = require("./handlers/interactions"),
   normalCommandsHandler = require("./handlers/commands"),
+  autoresponseHandler = require("./handlers/autoresponse"),
   client = new Discord.Client({
     messageCacheLifetime: 60,
     messageSweepInterval: 60,
@@ -51,6 +52,8 @@ client.on("messageCreate", message => {
       }]
     }]
   });
+
+  autoresponseHandler(message);
 });
 
 client.login(config.client.token);

@@ -9,7 +9,8 @@ module.exports = [
       "Website": "https://countr.xyz",
       "Documentation": "https://docs.countr.xyz",
       "Source Code": "https://github.com/countr/countr"
-    }
+    },
+    autoresponses: "countr"
   },
   {
     service: "The Impostor",

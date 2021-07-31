@@ -8,6 +8,7 @@
     "discord.js": "^13.0.0-dev.30a58dc.1627387368",
     "erlpack": "github:discord/erlpack",
     "express": "^4.17.1",
+    "ml-classify-text": "^2.0.0",
     "node-fetch": "^2.6.1",
     "quick.db": "^7.1.3",
     "utf-8-validate": "^5.0.5",
