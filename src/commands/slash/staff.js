@@ -50,7 +50,7 @@ module.exports.execute = (interaction = new Interaction, { sort = "status", show
   if (show == "available") staff = staff.filter(m => m.presence && m.presence.status == "online");
 
   if (!staff.size) {
-    const help = selfhelp.find(h => h.channels.includes(interaction.channelId));
+    const help = selfhelp.find(h => h.channels.includes(interaction.channelId) && h.links);
     return interaction.reply({
       embeds: [{
         title: "No staff members are currently available",
