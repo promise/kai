@@ -5,21 +5,14 @@ module.exports = {
 const { Interaction } = require("discord.js"), config = require("../../../config"), { quickresponses, emojis } = require("../../database");
 
 module.exports.execute = (interaction = new Interaction, _, { componentCallbacks }) => {
-
-  if ( quickresponses.raw().length == 0) {
-    let response = { embeds: [{
-      fields: [
-        {
-          name: "Issue",
-          title: "No responses available",
-          description: "There is no quick response available, please create one to see it here",
-          inline: true
-        }
-      ],
-      color: config.colors.success
-    }], ephemeral: true };
-    return interaction.reply(response);
-  };
+  if (!quickresponses.raw().length) return interaction.reply({
+    embeds: [{
+      title: "No quickresponses are available",
+      description: "There are no quick response available as of right now, create one with `/quick-response set`",
+      color: config.colors.error
+    }],
+    ephemeral: true
+  });
 
   const
     responses = quickresponses.raw().sort((a, b) => a.ID > b.ID ? 1 : -1),
