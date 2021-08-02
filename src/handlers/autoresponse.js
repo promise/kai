@@ -63,7 +63,7 @@ componentCallbacks.set("autoresponse:accept", (interaction = new ButtonInteracti
   const [ model, id ] = message.components[0].components[0].label.split(" • ")[0].split(":");
 
   TrainingModel.findOne({ name: model }).then(model => {
-    if (model.data.has(id)) model.data.get(id).input.push(reference.cleanContent);
+    if (model.data.has(id) && !model.data.get(id).input.includes(reference.cleanContent)) model.data.get(id).input.push(reference.cleanContent);
     model.save().then(() => module.exports.updateClassifiers());
   }).catch(); 
 }));
