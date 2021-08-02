@@ -10,18 +10,18 @@ module.exports = {
   ]
 };
 
-const { CommandInteraction } = require("discord.js"), config = require("../../../../config"), { quickresponses, emojis } = require("../../../database");
+const { CommandInteraction } = require("discord.js"), config = require("../../../../config"), { QuickResponse, emojis } = require("../../../database");
 
-module.exports.execute = (interaction = new CommandInteraction, { name }, { componentCallbacks }) => {
+module.exports.execute = async (interaction = new CommandInteraction, { name }, { componentCallbacks }) => {
   name = name.toLowerCase();
-  const body = quickresponses.get(name);
+  const qr = await QuickResponse.find({ name }).then(() => null);
 
-  if (!body) return interaction.reply({
+  if (!qr) return interaction.reply({
     content: `${emojis.get("error")} The quick response \`${config.qrPrefix + name}\` does not exist.`, ephemeral: true
   });
 
   componentCallbacks.set(`${interaction.id}:confirm`, newInteraction => {
-    quickresponses.unset(name);
+    qr.delete();
     newInteraction.update({
       content: `${emojis.get("success")} The quick response \`${config.qrPrefix + name}\` has been deleted.`,
       embeds: [], components: []
@@ -33,7 +33,7 @@ module.exports.execute = (interaction = new CommandInteraction, { name }, { comp
   }));
 
   interaction.reply({
-    content: body,
+    content: qr.body,
     embeds: [{
       description: "Are you sure you want to delete this quick response?",
       color: config.colors.warning

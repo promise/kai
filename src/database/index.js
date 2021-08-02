@@ -1,11 +1,11 @@
 module.exports = {
   // local
   emojis: require("./local")("emojis"),
-  quickresponses: require("./local")("quickresponses"),
   reactionroles: require("./local")("reactionroles"),
   shardstatus: require("./local")("shardstatus"),
   tickets: require("./local")("tickets"),
   botMonitor: require("./local")("botMonitor"),
   // mongo
-  TrainingModel: require("./mongo/trainingModel")
+  TrainingModel: require("./mongo/trainingModel"),
+  QuickResponse: require("./mongo/quickResponse"),
 };

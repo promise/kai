@@ -16,14 +16,19 @@ module.exports = {
   ]
 };
 
-const { CommandInteraction } = require("discord.js"), config = require("../../../../config"), { quickresponses, emojis } = require("../../../database");
+const { CommandInteraction } = require("discord.js"), config = require("../../../../config"), { QuickResponse, emojis } = require("../../../database");
 
 module.exports.execute = (interaction = new CommandInteraction, { name, body }, { componentCallbacks }) => {
   name = name.toLowerCase();
   body = body.split(";;").join("\n");
 
   componentCallbacks.set(`${interaction.id}:confirm`, newInteraction => {
-    quickresponses.set(name, body);
+    QuickResponse.find({ name }, (_, qr) => {
+      if (!qr) qr = new QuickResponse({ name });
+      qr.body = body;
+      qr.save();
+    });
+
     newInteraction.update({
       content: `${emojis.get("success")} The quick response \`${config.qrPrefix + name}\` is now set.`,
       embeds: [], components: []
