@@ -55,7 +55,7 @@ module.exports.execute = (interaction = new Interaction, { sort = "status", show
       embeds: [{
         title: "No staff members are currently available",
         description: [
-          `If you need assistance on ${help ? help.service : "one of our bots, project or other services"} then please check out our documentation while you wait for a staff member to come online.`,
+          `If you need assistance on ${help && help.service ? help.service : "one of our bots, project or other services"} then please check out our documentation while you wait for a staff member to come online.`,
           help ? Object.keys(help.links).map(l => `• **${l}:** ${help.links[l]}`).join("\n") : null,
           "Please know our staff members are helping you for free and we can't promise that one of us will be online 24/7 to help you. We are all humans, we all have human lives away from our computer screen and we hope you can understand and respect this. Thank you."
         ].filter(s => s).join("\n\n"),
