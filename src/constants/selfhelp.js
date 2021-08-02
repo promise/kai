@@ -21,5 +21,11 @@ module.exports = [
     links: {
       "Source Code": "https://github.com/biaw/the-impostor"
     }
+  },
+  {
+    channels: [
+      "449637630355701760", // general
+    ],
+    ml_model: "non-support"
   }
 ];
