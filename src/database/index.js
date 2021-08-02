@@ -7,5 +7,5 @@ module.exports = {
   tickets: require("./local")("tickets"),
   botMonitor: require("./local")("botMonitor"),
   // mongo
-  mlTraining: require("./mongo/trainingModel")
+  TrainingModel: require("./mongo/trainingModel")
 };

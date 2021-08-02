@@ -10,12 +10,12 @@ module.exports = {
   ]
 };
 
-const { CommandInteraction } = require("discord.js"), { mlTraining, emojis } = require("../../../../database");
+const { CommandInteraction } = require("discord.js"), { TrainingModel, emojis } = require("../../../../database");
 
-module.exports.execute = (interaction = new CommandInteraction, { group }) => mlTraining.findOne({ name: group }, (_, model) => {
+module.exports.execute = (interaction = new CommandInteraction, { group }) => TrainingModel.findOne({ name: group }, (_, model) => {
   if (model) return interaction.reply({ content: `${emojis.get("error")} This autoresponse group already exists.`, ephemeral: true });
 
-  model = new mlTraining({ name: group });
+  model = new TrainingModel({ name: group });
   model.save();
 
   return interaction.reply({ content: `${emojis.get("success")} The autoresponse group has been created.`, ephemeral: true });

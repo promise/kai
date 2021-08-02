@@ -1,4 +1,4 @@
-const { Message, ButtonInteraction } = require("discord.js"), selfhelp = require("../constants/selfhelp.js"), { Classifier } = require("ml-classify-text"), { componentCallbacks } = require("./interactions.js"), config = require("../../config.js"), { emojis, quickresponses } = require("../database"), TrainingModel = require("../database/mongo/trainingModel.js");
+const { Message, ButtonInteraction } = require("discord.js"), selfhelp = require("../constants/selfhelp.js"), { Classifier } = require("ml-classify-text"), { componentCallbacks } = require("./interactions.js"), config = require("../../config.js"), { emojis, quickresponses, TrainingModel } = require("../database");
 
 const classifiers = new Map(), models = new Map();
 updateClassifiers();

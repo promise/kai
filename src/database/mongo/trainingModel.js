@@ -12,5 +12,3 @@ const trainingModelSchema = new mongoose.Schema({
 const TrainingModel = mongoose.model("TrainingModel", trainingModelSchema);
 
 module.exports = TrainingModel;
-
-TrainingModel.find().then(console.log);

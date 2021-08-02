@@ -26,9 +26,9 @@ module.exports = {
   ]
 };
 
-const { CommandInteraction } = require("discord.js"), { mlTraining, emojis } = require("../../../database");
+const { CommandInteraction } = require("discord.js"), { TrainingModel, emojis } = require("../../../database");
 
-module.exports.execute = (interaction = new CommandInteraction, { group, id, quickresponse = null, percentage = null }) => mlTraining.findOne({ name: group }, (_, model) => {
+module.exports.execute = (interaction = new CommandInteraction, { group, id, quickresponse = null, percentage = null }) => TrainingModel.findOne({ name: group }, (_, model) => {
   if (!model) return interaction.reply({ content: `${emojis.get("error")} This autoresponse group does not exist.`, ephemeral: true });
   if (!model.data.has(id)) return interaction.reply({ content: `${emojis.get("error")} This autoresponse does not exist in the group \`${group}\``, ephemeral: true });
 

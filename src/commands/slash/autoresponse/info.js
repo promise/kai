@@ -16,10 +16,10 @@ module.exports = {
   ]
 };
 
-const { CommandInteraction } = require("discord.js"), { mlTraining, emojis } = require("../../../database");
+const { CommandInteraction } = require("discord.js"), { TrainingModel, emojis } = require("../../../database");
 const config = require("../../../../config");
 
-module.exports.execute = (interaction = new CommandInteraction, { group, id }) => mlTraining.findOne({ name: group }, (_, model) => {
+module.exports.execute = (interaction = new CommandInteraction, { group, id }) => TrainingModel.findOne({ name: group }, (_, model) => {
   if (!model) return interaction.reply({ content: `${emojis.get("error")} This autoresponse group does not exist.`, ephemeral: true });
   if (!model.data.has(id)) return interaction.reply({ content: `${emojis.get("error")} This autoresponse does not exist in the group \`${group}\``, ephemeral: true });
 
