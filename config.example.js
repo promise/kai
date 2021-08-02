@@ -4,6 +4,7 @@ module.exports = {
     secret: "",
     token: ""
   },
+  database_uri: "mongodb://localhost/kai-bot?retryWrites=true&w=majority",
 
   // discord IDs
   owner: "110090225929191424",

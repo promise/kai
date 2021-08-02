@@ -1,5 +1,6 @@
 const
   Discord = require("discord.js"),
+  mongoose = require("mongoose"),
   fs = require("fs"),
   config = require("../config"),
   emojiServerHandler = require("./handlers/emojiServer"),
@@ -56,4 +57,9 @@ client.on("messageCreate", message => {
   autoresponseHandler(message);
 });
 
-client.login(config.client.token);
+mongoose.connect(config.database_uri, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+}).then(() => client.login(config.client.token));
