@@ -38,7 +38,7 @@ module.exports = () => {
     if (!config.botMonitors[req.params.id]) return res.status(404).send("Bot not found");
 
     const
-      logs = (await BotLog.find({ bot: req.params.id, timestamp: { $gte: Date.now() - 86400000 } })).map(({ shards = { "0": { status: 1 } } }) => Object.values(shards).map(shard => shard.status ? false : true).map(status => status ? 1 : 0).reduce((a, b) => a + b) / Object.values(shards).length),
+      logs = (await BotLog.find({ bot: req.params.id, timestamp: { $gte: Date.now() - 86400000 } })).map(({ status: { shards = { "0": { status: 1 } } } }) => Object.values(shards).map(shard => shard.status ? false : true).map(status => status ? 1 : 0).reduce((a, b) => a + b) / Object.values(shards).length),
       uptime = (logs.reduce((a, b) => a + b) / logs.length * 100).toFixed(1);
 
     let color = "brightgreen";
