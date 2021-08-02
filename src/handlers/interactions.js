@@ -80,21 +80,26 @@ function nestCommands(relativePath, layer = 0) {
 }
 
 function getPermissions(permission = "ALL") {
-  const ranking = permissionLadder[permission] || 3, permissions = [];
+  const ranking = permissionLadder[permission] || 4, permissions = [];
   if (ranking != 0) {
-    if (ranking <= 3) permissions.push({
+    if (ranking <= 4) permissions.push({
       type: "USER",
       id: config.owner,
       permission: true
     });
-    if (ranking <= 2) permissions.push({
+    if (ranking <= 3) permissions.push({
       type: "ROLE",
       id: config.permissions.admin,
       permission: true
     });
-    if (ranking <= 1) permissions.push({
+    if (ranking <= 2) permissions.push({
       type: "ROLE",
       id: config.permissions.staff,
+      permission: true
+    });
+    if (ranking <= 1) permissions.push({
+      type: "ROLE",
+      id: config.permissions.helper,
       permission: true
     });
   }
