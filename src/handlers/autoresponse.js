@@ -89,7 +89,7 @@ function updateClassifiers() {
 
     model.data.forEach(({ input }, id) => classifier.train(input, id));
 
-    console.log("retrained");
+    console.log(`Retrained model \`${model.name}\``);
 
     classifiers.set(model.name, classifier);
     models.set(model.name, model.data);
