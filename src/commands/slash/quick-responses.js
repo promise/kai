@@ -18,7 +18,7 @@ module.exports.execute = (interaction = new Interaction, _, { componentCallbacks
     responses = quickresponses.sort((a, b) => a.name > b.name ? 1 : -1),
     blank = emojis.get("blank"),
     selected = emojis.get("selected"),
-    embeds = responses.map(qr => ({
+    embeds = responses.map((qr, i) => ({
       fields: [{
         name: "Selected", value: responses.map(({ name }, j) => `${i == j ? selected : blank}\`${config.qrPrefix + name}\``).slice(Math.max(0, Math.min(i - 4, responses.length - 10)), Math.min(responses.length - 1, i - (Math.min(0, i - 4) - 5))).join("\n"), inline: true
       }, {
