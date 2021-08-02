@@ -2,10 +2,10 @@ module.exports = {
   description: "Get a list of quick responses you can use"
 };
 
-const { Interaction } = require("discord.js"), config = require("../../../config"), { quickresponses, emojis } = require("../../database");
+const { Interaction } = require("discord.js"), config = require("../../../config"), { QuickResponse, emojis } = require("../../database");
 
-module.exports.execute = (interaction = new Interaction, _, { componentCallbacks }) => {
-  if (!quickresponses.raw().length) return interaction.reply({
+module.exports.execute = (interaction = new Interaction, _, { componentCallbacks }) => QuickResponse.find().then(quickresponses => {
+  if (!quickresponses.length) return interaction.reply({
     embeds: [{
       title: "No quickresponses are available",
       description: "There are no quick response available as of right now, create one with `/quick-response set`",
@@ -15,14 +15,14 @@ module.exports.execute = (interaction = new Interaction, _, { componentCallbacks
   });
 
   const
-    responses = quickresponses.raw().sort((a, b) => a.ID > b.ID ? 1 : -1),
+    responses = quickresponses.sort((a, b) => a.name > b.name ? 1 : -1),
     blank = emojis.get("blank"),
     selected = emojis.get("selected"),
-    embeds = responses.map(({ ID }, i) => ({
+    embeds = responses.map(qr => ({
       fields: [{
-        name: "Selected", value: responses.map(({ ID: name }, j) => `${i == j ? selected : blank}\`${config.qrPrefix + name}\``).slice(Math.max(0, Math.min(i - 4, responses.length - 10)), Math.min(responses.length - 1, i - (Math.min(0, i - 4) - 5))).join("\n"), inline: true
+        name: "Selected", value: responses.map(({ name }, j) => `${i == j ? selected : blank}\`${config.qrPrefix + name}\``).slice(Math.max(0, Math.min(i - 4, responses.length - 10)), Math.min(responses.length - 1, i - (Math.min(0, i - 4) - 5))).join("\n"), inline: true
       }, {
-        name: config.qrPrefix + ID, value: quickresponses.get(ID), inline: true
+        name: config.qrPrefix + qr.name, value: qr.body, inline: true
       }],
       color: config.colors.success
     }));
@@ -39,7 +39,7 @@ module.exports.execute = (interaction = new Interaction, _, { componentCallbacks
     newInteraction.update(createMessage(embeds, i, interaction.id));
   });
   interaction.reply(createMessage(embeds, i, interaction.id));
-};
+});
 
 function createMessage(embeds, i, id) {
   return {

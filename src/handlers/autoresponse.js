@@ -1,9 +1,9 @@
-const { Message, ButtonInteraction } = require("discord.js"), selfhelp = require("../constants/selfhelp.js"), { Classifier } = require("ml-classify-text"), { componentCallbacks } = require("./interactions.js"), config = require("../../config.js"), { emojis, quickresponses, TrainingModel } = require("../database");
+const { Message, ButtonInteraction } = require("discord.js"), selfhelp = require("../constants/selfhelp.js"), { Classifier } = require("ml-classify-text"), { componentCallbacks } = require("./interactions.js"), config = require("../../config.js"), { emojis, QuickResponse, TrainingModel } = require("../database");
 
 const classifiers = new Map(), models = new Map();
 updateClassifiers();
 
-module.exports = (message = new Message) => {
+module.exports = async (message = new Message) => {
   if (message.content.startsWith(config.qrPrefix)) return;
 
   const help = selfhelp.find(h => h.channels.includes(message.channel?.id));
@@ -18,7 +18,7 @@ module.exports = (message = new Message) => {
       if (prediction) {
         const { quickresponse, confidenceRequired } = data.get(prediction.label);
         message.reply({
-          content: quickresponses.get(quickresponse).split("\n").map(line => `> ${line}`).join("\n"),
+          content: (await QuickResponse.findOne({ name: quickresponse })).body.split("\n").map(line => `> ${line}`).join("\n"),
           components: [{
             type: "ACTION_ROW",
             components: [
