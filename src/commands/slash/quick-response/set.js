@@ -23,7 +23,7 @@ module.exports.execute = (interaction = new CommandInteraction, { name, body }, 
   body = body.split(";;").join("\n");
 
   componentCallbacks.set(`${interaction.id}:confirm`, newInteraction => {
-    QuickResponse.find({ name }, (_, qr) => {
+    QuickResponse.findOne({ name }, (_, qr) => {
       if (!qr) qr = new QuickResponse({ name });
       qr.body = body;
       qr.save();

@@ -14,7 +14,7 @@ const { CommandInteraction } = require("discord.js"), config = require("../../..
 
 module.exports.execute = async (interaction = new CommandInteraction, { name }, { componentCallbacks }) => {
   name = name.toLowerCase();
-  const qr = await QuickResponse.find({ name }).then(() => null);
+  const qr = await QuickResponse.findOne({ name }).then(() => null);
 
   if (!qr) return interaction.reply({
     content: `${emojis.get("error")} The quick response \`${config.qrPrefix + name}\` does not exist.`, ephemeral: true
