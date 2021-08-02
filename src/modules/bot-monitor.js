@@ -1,4 +1,4 @@
-const config = require("../../config"), statuses = require("../utils/shardStatus"), { botMonitor } = require("../database"), app = require("../utils/express"), { makeBadge } = require("badge-maker");
+const config = require("../../config"), statuses = require("../utils/shardStatus"), { BotLog } = require("../database"), app = require("../utils/express"), { makeBadge } = require("badge-maker");
 
 module.exports = () => {
   app.get("/badge/:id/status.svg", (req, res) => {
@@ -34,11 +34,11 @@ module.exports = () => {
     res.header("Cache-Control", "no-store").type("svg").send(makeBadge(format));
   });
 
-  app.get("/badge/:id/uptime.svg", (req, res) => {
+  app.get("/badge/:id/uptime.svg", async (req, res) => {
     if (!config.botMonitors[req.params.id]) return res.status(404).send("Bot not found");
 
     const
-      logs = botMonitor.get(req.params.id)?.slice(0, 20000).map(({ shards = { "0": { status: 1 } } }) => Object.values(shards).map(shard => shard.status ? false : true).map(status => status ? 1 : 0).reduce((a, b) => a + b) / Object.values(shards).length) ?? [],
+      logs = (await BotLog.find({ bot: req.params.id, timestamp: { $gte: Date.now() - 86400000 } })).map(({ shards = { "0": { status: 1 } } }) => Object.values(shards).map(shard => shard.status ? false : true).map(status => status ? 1 : 0).reduce((a, b) => a + b) / Object.values(shards).length),
       uptime = (logs.reduce((a, b) => a + b) / logs.length * 100).toFixed(1);
 
     let color = "brightgreen";

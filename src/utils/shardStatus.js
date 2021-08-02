@@ -1,13 +1,14 @@
-const config = require("../../config"), fetch = require("node-fetch"), statuses = new Map(), { botMonitor } = require("../database");
+const config = require("../../config"), fetch = require("node-fetch"), statuses = new Map(), { BotLog } = require("../database");
 
 setInterval(async () => {
   for (const bot in config.botMonitors) {
-    const status = statuses.get(bot) || { lastUpdate: 1 }, newStatus = await fetch(config.botMonitors[bot].endpoint).then(res => res.json()).catch(() => null);
-    if (!(status?.lastUpdate == newStatus?.lastUpdate)) {
-      statuses.set(bot, newStatus);
-      botMonitor.push(bot, newStatus || {});
-    }
+    const newStatus = await fetch(config.botMonitors[bot].endpoint).then(res => res.json()).catch(() => null);
+    statuses.set(bot, newStatus);
   }
 }, config.monitorInterval);
+
+setInterval(() => {
+  for (const [bot, status] of statuses) (new BotLog({ bot, status })).save();
+}, config.logInterval);
 
 module.exports = statuses;
