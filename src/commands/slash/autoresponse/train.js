@@ -28,8 +28,8 @@ module.exports.execute = (interaction = new CommandInteraction, { group, id, str
   if (!model) return interaction.reply({ content: `${emojis.get("error")} This autoresponse group does not exist.`, ephemeral: true });
   if (!model.data.has(id)) return interaction.reply({ content: `${emojis.get("error")} This autoresponse does not exist in the group \`${group}\``, ephemeral: true });
 
-  model.data.get(id).input.push(string);
+  model.data.get(id).input.push(...string.split(";"));
   model.save().then(updateClassifiers);
 
-  return interaction.reply({ content: `${emojis.get("success")} The autoresponse has been added to training.`, ephemeral: true });
+  return interaction.reply({ content: `${emojis.get("success")} The training data has been added`, ephemeral: true });
 });

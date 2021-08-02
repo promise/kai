@@ -18,5 +18,5 @@ module.exports.execute = (interaction = new CommandInteraction, { group }) => ml
   model = new mlTraining({ name: group });
   model.save();
 
-  return interaction.reply({ content: `${emojis.get("success")} The autoresponse group has been deleted.`, ephemeral: true });
+  return interaction.reply({ content: `${emojis.get("success")} The autoresponse group has been created.`, ephemeral: true });
 });

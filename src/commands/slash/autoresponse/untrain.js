@@ -31,5 +31,5 @@ module.exports.execute = (interaction = new CommandInteraction, { group, id, str
   for (const s of string.split(";")) model.data.get(id).input.pull(s);
   model.save().then(updateClassifiers);
 
-  return interaction.reply({ content: `${emojis.get("success")} The autoresponse has been added to training.`, ephemeral: true });
+  return interaction.reply({ content: `${emojis.get("success")} The training data has been removed`, ephemeral: true });
 });
