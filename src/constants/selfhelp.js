@@ -10,7 +10,7 @@ module.exports = [
       "Documentation": "https://docs.countr.xyz",
       "Source Code": "https://github.com/countr/countr"
     },
-    autoresponses: "countr"
+    ml_model: "countr"
   },
   {
     service: "The Impostor",
