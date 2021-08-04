@@ -51,7 +51,10 @@ module.exports = async client => {
 
 function getSlashArgs(options) { // to get the path as well as the args
   const args = {};
-  for (const o of options) args[o.name] = o.options ? getSlashArgs(o.options) : o.value;
+  for (const o of options) {
+    if (o.type == 3) args[o.name] = o.value.trim();
+    else args[o.name] = o.options ? getSlashArgs(o.options) : o.value;
+  }
   return args;
 }
 
