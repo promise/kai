@@ -57,7 +57,7 @@ module.exports = async (message = new Message) => {
 };
 
 componentCallbacks.set("autoresponse:accept", (interaction = new ButtonInteraction) => check(interaction, async () => {
-  interaction.update({ content: `${emojis.get("success")} *Accepted as an answer by ${interaction.user}*\n` + interaction.message.content, components: [] });
+  interaction.update({ content: `${emojis.get("success")} *Accepted as an answer by <@${interaction.user.id}>*\n` + interaction.message.content, components: [] });
   
   const message = await interaction.message.fetch(), reference = await interaction.message.fetchReference();
   const [ model, id ] = message.components[0].components[0].label.split(" • ")[0].split(":");
