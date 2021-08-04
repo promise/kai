@@ -83,8 +83,8 @@ function check(interaction = new ButtonInteraction, callback = new Function) {
 function updateClassifiers() {
   TrainingModel.find().then(training_models => training_models.forEach(model => {
     const classifier = new Classifier({
-      nGramMin: 1,
-      nGramMax: 2
+      nGramMin: 2,
+      nGramMax: 4
     });
 
     model.data.forEach(({ input }, id) => classifier.train(input, id));
