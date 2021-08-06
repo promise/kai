@@ -8,11 +8,13 @@ module.exports = async (message = new Message) => {
 
   const help = selfhelp.find(h => h.channels.includes(message.channel?.id));
   if (help && help.ml_model && classifiers.has(help.ml_model)) {
-    const classifier = classifiers.get(help.ml_model);
-    const predictions = classifier.predict(message.cleanContent);
+    const data = models.get(help.ml_model), classifier = classifiers.get(help.ml_model);
+    const predictions = [
+      getExactPrediction(data, message.content),
+      ...classifier.predict(message.cleanContent)
+    ].filter(p => p);
 
     if (predictions.length) {
-      const data = models.get(help.ml_model);
       const prediction = predictions.sort((a, b) => b.confidence - a.confidence).find(p => p.confidence >= data.get(p.label).confidenceRequired);
 
       if (prediction) {
@@ -57,7 +59,7 @@ module.exports = async (message = new Message) => {
 };
 
 componentCallbacks.set("autoresponse:accept", (interaction = new ButtonInteraction) => check(interaction, async () => {
-  interaction.update({ content: `${emojis.get("success")} *Accepted as an answer by <@${interaction.user.id}>*\n` + interaction.message.content, components: [] });
+  interaction.update({ content: `${emojis.get("success")} *Accepted as an answer by ${interaction.user}*\n` + interaction.message.content, components: [] });
   
   const message = await interaction.message.fetch(), reference = await interaction.message.fetchReference();
   const [ model, id ] = message.components[0].components[0].label.split(" • ")[0].split(":");
@@ -84,7 +86,7 @@ function updateClassifiers() {
   TrainingModel.find().then(training_models => training_models.forEach(model => {
     const classifier = new Classifier({
       nGramMin: 2,
-      nGramMax: 4
+      nGramMax: 5
     });
 
     model.data.forEach(({ input }, id) => classifier.train(input, id));
@@ -97,3 +99,9 @@ function updateClassifiers() {
 }
 
 module.exports.updateClassifiers = updateClassifiers;
+
+function getExactPrediction(data, text) {
+  const exact = [...data.keys()].find(label => data.get(label).input.map(i => i.toLowerCase()).includes(text.toLowerCase()));
+  if (exact) return { label: exact, confidence: 1 };
+  else return null;
+}
