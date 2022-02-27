@@ -1,0 +1,21 @@
+{
+    "947196941069086731": {
+        "ownerId": "365517405558145025",
+        "creatorId": "110090225929191424",
+        "description": "aa, i just restarted dns server, so if i drop off for a min or so, thats why",
+        "timestamp": 1645899767897,
+        "notify": true,
+        "server": "test",
+        "botMessageId": "947196942289621002"
+    },
+    "947197004629569646": {
+        "ownerId": "365517405558145025",
+        "creatorId": "110090225929191424",
+        "description": "Ticket via user dropdown",
+        "timestamp": 1645899782999,
+        "notify": true,
+        "server": null,
+        "botMessageId": "947197005510377482",
+        "closedById": "110090225929191424"
+    }
+}

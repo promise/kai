@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  kai:
+    build: .
+    container_name: kai
+    restart: unless-stopped
+    volumes:
+      - ./database:/app/database
+      - ./logs:/app/logs
+    ports:
+      - "8080:8080"

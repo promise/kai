@@ -1,0 +1,1 @@
+tl;dr: https://github.com/andreekeberg/ml-classify-text-js but in typescript

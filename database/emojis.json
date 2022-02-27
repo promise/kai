@@ -1,0 +1,21 @@
+{
+    "blank": "<:blank:947166650317295646>",
+    "commandDenied": "<:commandDenied:947166651286167582>",
+    "commandInvalidArguments": "<:commandInvalidArguments:947166652154409042>",
+    "commandNotFound": "<:commandNotFound:947166654008266752>",
+    "connection": "<:connection:947166655182680184>",
+    "degradedPerformance": "<:degradedPerformance:947166656294162442>",
+    "error": "<:error:947166657317584967>",
+    "github": "<:github:947166658663960606>",
+    "hello": "<a:hello:947166660803067964>",
+    "kofi": "<:kofi:947166662040363049>",
+    "majorOutage": "<:majorOutage:947166663076376626>",
+    "minorOutage": "<:minorOutage:947166664150114404>",
+    "moderator": "<:moderator:947166665366458469>",
+    "operational": "<:operational:947166666477932554>",
+    "patreon": "<:patreon:947168150917644319>",
+    "selected": "<:selected:947168151957819492>",
+    "staff": "<:staff:947168153098661888>",
+    "success": "<:success:947168154201755718>",
+    "twitter": "<:twitter:947168155359408128>"
+}

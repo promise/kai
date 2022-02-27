@@ -3,4 +3,3 @@ build
 ./database/*.json
 !./database/.gitkeep
 logs
-.env
