@@ -8,5 +8,6 @@ services:
     volumes:
       - ./database:/app/database
       - ./logs:/app/logs
-    ports:
-      - "11142:11142"
+    #ports:
+    #  - "11142:11142"
+    network_mode: host
