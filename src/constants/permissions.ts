@@ -1,5 +1,5 @@
 import { GuildMember, User } from "discord.js";
-import { PermissionLevel } from "../@types/permissions";
+import { PermissionLevel } from "../types/permissions";
 import config from "../config";
 
 export const ladder: Record<PermissionLevel, number> = {

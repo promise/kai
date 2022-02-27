@@ -9,4 +9,4 @@ services:
       - ./database:/app/database
       - ./logs:/app/logs
     ports:
-      - "8080:8080"
+      - "11142:11142"

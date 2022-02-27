@@ -66,7 +66,7 @@ export default {
 /*
  * // new shard status for countr v13
  * import { GuildMember, MessageEmbedOptions } from "discord.js";
- * import { SlashCommand } from "../../@types/command";
+ * import { SlashCommand } from "../../types/command";
  * import { bytesToHumanReadableFormat } from "../../utils/human";
  * import config from "../../config";
  * import { fixedWidthImage } from "../../constants/embeds";
