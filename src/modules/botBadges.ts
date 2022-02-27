@@ -33,13 +33,17 @@ export default (() => {
       format.color = "green";
     }
 
-    res.header("Cache-Control", "no-store").type("svg").send(makeBadge(format));
+    res.header("Cache-Control", "60").type("svg").send(makeBadge(format));
   });
 
   app.get("/badge/:id/uptime.svg", async (req, res) => {
     if (!config.monitor.list[req.params.id]) return res.sendStatus(501);
 
-    const logs = (await BotLog.find({ bot: req.params.id, timestamp: { $gte: Date.now() - 86400000 }})).map(({ status: { shards = { 0: { status: 1 }}}}) => Object.values(shards).map(shard => !shard.status).map(status => (status ? 1 : 0) as number).reduce((a, b) => a + b, 0) / Object.values(shards).length);
+    const logs = (await BotLog.find({ bot: req.params.id, timestamp: { $gte: Date.now() - 86400000 }}))
+      .map(({ status: { shards = { 0: { status: 1 }}}}) => Object.values(shards)
+        .map(shard => !shard.status)
+        .map(status => (status ? 1 : 0) as number)
+        .reduce((a, b) => a + b, 0) / Object.values(shards).length);
     const uptime = logs.reduce((a, b) => a + b, 0) / logs.length * 100;
     const uptimeFixed = uptime.toFixed(2);
 
@@ -56,6 +60,6 @@ export default (() => {
     if (uptime < 90.0) format.color = "orange";
     if (uptime < 75.0) format.color = "red";
 
-    res.header("Cache-Control", "no-store").type("svg").send(makeBadge(format));
+    res.header("Cache-Control", "10800").type("svg").send(makeBadge(format));
   });
 }) as Module;
