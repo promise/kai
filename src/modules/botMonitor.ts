@@ -10,8 +10,7 @@ export default (() => {
   setInterval(async () => {
     for (const bot in config.monitor.list) {
       try {
-        const res = await superagent.get(config.monitor.list[bot].endpoint);
-        const json = JSON.parse(res.body);
+        const json = await superagent.get(config.monitor.list[bot].endpoint).then(res => res.body);
         statuses.set(bot, json);
       } catch (e) {
         kaiLogger.warn(`Could not log status of ${bot}: ${inspect(e)}`);
