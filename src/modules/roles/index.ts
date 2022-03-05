@@ -19,8 +19,8 @@ export default (async client => {
   });
 
   // process all members on startup
-  const members = await client.guilds.resolve(config.guildId)?.members.fetch();
-  if (members) for (const member of Array.from(members.values())) await updateRoles(member);
+  const members = await Promise.all(client.guilds.cache.map(g => g.members.fetch()));
+  for (const batch of members) for (const member of Array.from(batch.values())) await updateRoles(member);
 }) as Module;
 
 async function updateRoles(member: GuildMember) {
