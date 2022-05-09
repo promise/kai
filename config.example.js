@@ -36,11 +36,6 @@ module.exports = {
       name: "Countr Premium",
       endpoint: "http://localhost:23456",
       category: "598229124024369152", // "the second floor", patreon category
-    },
-    "747110939001880656": {
-      name: "The Impostor",
-      endpoint: "http://localhost:34567",
-      category: "757331504102637669", // the impostor category
     }
   },
   monitorInterval: 30000, // every 30 seconds
